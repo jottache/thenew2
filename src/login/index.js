@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import {
   Section,
   Container,
-  Container2,
   FormContainer,
   Form,
   Input,
@@ -34,14 +33,15 @@ export const Login = () => {
         username,
         password,
       },
-      withCredentials: true
+      // withCredentials: true
     })
     .then((res)=>{
-      console.log(res)
-      console.log(res.headers)
-      setToken(res.data.token)
-      setId(res.data.id)
-      
+      if(res.status === 200){
+        const identificador = res.data.id
+        const tokenInicio = res.data.token
+        setId(identificador)
+        setToken(tokenInicio)
+      }
     })
     .catch((err)=>{
       console.log(err)
@@ -58,14 +58,19 @@ export const Login = () => {
           <Text>Contraseña</Text>
           <Input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
           <Button>ingresar</Button>
-          <Text>no esstas registrado? <Link to="/registro">registrate</Link></Text>
+          <Text>no estas registrado? <Link to="/registro">registrate</Link></Text>
         </Form>
       </FormContainer>
       </Container>
 
-      <Container2>
+      <Container>
         <p>segundo</p>
-      </Container2>
+      </Container>
+      {
+        token && id ? 
+        <Redirect to={{ pathname: "/balance", state: {id: id, token: token} }}/>
+        : null
+      }
     </Section>
   )
 }

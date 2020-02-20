@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {
   Section,
   Container,
+  FormContainer,
   Form,
   Input,
   Button,
@@ -56,17 +57,18 @@ export const Registro = () => {
   }
   const registrationFirstStep = () =>{
     event.preventDefault()
-    // axios({
-    //   url: 'http://192.168.86.40:3000/api/auth/exist/',
-    //   method: 'post',
-    //   data: {
-    //     ci,
-    //     card_serial,
-    //   }
-    // })
-    // .then((res)=>{
-    //   console.log(res)
-    // })
+    axios({
+      url: 'http://192.168.86.40:3000/api/customers/exist/',
+      method: 'post',
+      data: {
+        ci,
+        card_serial,
+        card_code
+      }
+    })
+    .then((res)=>{
+      console.log(res)
+    })
     setRegistrar(false)
     setPassView(true)
   }
@@ -83,45 +85,50 @@ export const Registro = () => {
     return(
       <Section>
       <Container>
-        <Titulo>Registro</Titulo>
-        <Form onSubmit={registerReq}>
-        {
-          registrar ? 
-          <>
-            <Input type="text" placeholder="Nombre" value={first_name} onChange={event => setFirst_name(event.target.value)}/>
-            <Input type="text" placeholder="Apellido"value={last_name} onChange={event => setLast_name(event.target.value)}/>
-            <Input type="text" placeholder="Cedula" value={ci} onChange={event => setCi(event.target.value)}/>
-            <Input type="text" placeholder="Serial" value={card_serial} onChange={event => setCard_serial(event.target.value)}/>
-            <Input type="text" placeholder="codigo serial" value={card_code} onChange={event => setCard_code(event.target.value)}/>
-            <Button onClick={registrationFirstStep}>Siguiente</Button>
-          </>
-          : null
-        }
-        {
-          passView ?
-          <>
-            <Input type="text" placeholder="password" value={pswd} onChange={event => setPswd(event.target.value)} />
-            <Input type="text" placeholder="verifica password" value={pswdVerify} onChange={event => setPswdVerify(event.target.value)} />
-            {
-              verifyError ?
-              <p>las contraseñas no coinciden</p>
-              : null
-            }
-            <Button onClick={passToPin}>Siguiente</Button>
-          </>
-          : null
-        }
-        {
-          pinView ?
-          <>
-            <Input type="text" placeholder="pin" value={pin} onChange={event => setPin(event.target.value)} />
-            <Input type="text" placeholder="verifica pin" value={pinVerify} onChange={event => setPinVerify(event.target.value)} />
-            <Button type="submit">Registrar</Button>
-          </>
-          : null
-        }
-        </Form>
-        <Text>ya estas registrado? <Link to="/login">log in</Link></Text>
+        <FormContainer>
+          <Titulo>Registro</Titulo>
+          <Form onSubmit={registerReq}>
+          {
+            registrar ? 
+            <>
+              <Input type="text" placeholder="Nombre" value={first_name} onChange={event => setFirst_name(event.target.value)}/>
+              <Input type="text" placeholder="Apellido"value={last_name} onChange={event => setLast_name(event.target.value)}/>
+              <Input type="text" placeholder="Cedula" value={ci} onChange={event => setCi(event.target.value)}/>
+              <Input type="text" placeholder="Serial" value={card_serial} onChange={event => setCard_serial(event.target.value)}/>
+              <Input type="text" placeholder="codigo serial" value={card_code} onChange={event => setCard_code(event.target.value)}/>
+              <Button onClick={registrationFirstStep}>Siguiente</Button>
+            </>
+            : null
+          }
+          {
+            passView ?
+            <>
+              <Input type="text" placeholder="password" value={pswd} onChange={event => setPswd(event.target.value)} />
+              <Input type="text" placeholder="verifica password" value={pswdVerify} onChange={event => setPswdVerify(event.target.value)} />
+              {
+                verifyError ?
+                <p>las contraseñas no coinciden</p>
+                : null
+              }
+              <Button onClick={passToPin}>Siguiente</Button>
+            </>
+            : null
+          }
+          {
+            pinView ?
+            <>
+              <Input type="text" placeholder="pin" value={pin} onChange={event => setPin(event.target.value)} />
+              <Input type="text" placeholder="verifica pin" value={pinVerify} onChange={event => setPinVerify(event.target.value)} />
+              <Button type="submit">Registrar</Button>
+            </>
+            : null
+          }
+          </Form>
+          <Text>ya estas registrado? <Link to="/">log in</Link></Text>
+        </FormContainer>
+      </Container>
+      <Container>
+        segundo
       </Container>
       </Section>
     )

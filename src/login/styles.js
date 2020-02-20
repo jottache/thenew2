@@ -10,10 +10,17 @@ export const Section = styled.section`
 
 export const Container = styled.div`
 border: 1px solid red;
-  width: 30%;
-  height: 60%;
+  width: 50%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const FormContainer = styled.div`
+  border: 1px solid red;
+  width: 60%;
+  height: 70%;
 `
 
 export const Form = styled.form`
@@ -39,7 +46,9 @@ export const Button = styled.button`
 `
 
 export const Text = styled.p`
-  text-align: center;
+  text-align: left;
+  width: 80%;
+  margin: 0;
 `
 
 export const Titulo = styled.h1`

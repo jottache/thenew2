@@ -10,10 +10,17 @@ export const Section = styled.section`
 
 export const Container = styled.div`
 border: 1px solid red;
-  width: 30%;
-  height: auto;
+  width: 50%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const FormContainer = styled.div`
+  border: 1px solid red;
+  width: 60%;
+  height: 70%;
 `
 
 export const Form = styled.form`
