@@ -6,24 +6,37 @@ export const Section = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url('https://i.imgur.com/X9Jq6EA.jpg')
 `
 
 export const Container = styled.div`
-border: 1px solid red;
+/* border: 1px solid red; */
   width: 60%;
   height: 100%;
 `
 
 export const BalanceContainer = styled.div`
-border: 1px solid red;
+/* border: 1px solid red; */
+  background-color: white;
+  border-bottom: 1px solid lightgray;
   width: 100%;
-  height: auto;
+  height: 30%;
 `
 
 export const Div = styled.div`
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const Menu = styled.div`
   width: auto;
   height: auto;
-  margin: 20px 0 4em 2em;
+  display: flex;
+  align-items: center;
 `
 
 export const Title = styled.p`
@@ -37,6 +50,22 @@ export const Title = styled.p`
 export const Name = styled.p`
   font-size: 1.2em;
   margin: 0;
+  margin-right: 1em;
+`
+export const Svg = styled.div`
+  font-size: 30px;
+  position: relative;
+`
+
+export const Modal = styled.div`
+  position: absolute;
+  text-align: right;
+  font-size: 16px;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  transform: translateX(-110px);
 `
 
 export const Text = styled.p`
@@ -54,7 +83,8 @@ export const BalanceNumber = styled.p`
 `
 
 export const TransactionsContainer = styled.div`
-  border: 1px solid green;
+  background-color: white;
+  opacity: .9;
   width: 100%;
-  height: auto;
+  height: 69%;
 `

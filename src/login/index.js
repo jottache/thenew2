@@ -2,18 +2,17 @@ import React, {useState} from 'react'
 import {
   Section,
   Container,
+  Container2,
   FormContainer,
   Form,
   Input,
   Button,
   Text,
-  TextRigth,
+  Text2,
   Titulo
 } from './styles'
 import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
-import Context from '../context'
-import Cookies from 'js-cookie'
 
 export const Login = () => {
 
@@ -58,14 +57,13 @@ export const Login = () => {
           <Text>Contraseña</Text>
           <Input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
           <Button>ingresar</Button>
-          <Text>no estas registrado? <Link to="/registro">registrate</Link></Text>
+          <Text2>no estas registrado? <Link to="/registro">registrate</Link></Text2>
         </Form>
       </FormContainer>
       </Container>
 
-      <Container>
-        <p>segundo</p>
-      </Container>
+      <Container2>
+      </Container2>
       {
         token && id ? 
         <Redirect to={{ pathname: "/balance", state: {id: id, token: token} }}/>
