@@ -14,14 +14,6 @@ export const App = () => {
 
   return(
     <HashRouter>
-      <Context.Consumer>
-        {
-          ({ isAuth }) =>
-          isAuth
-            ? <Redirect to="/balance"/>
-            : <Redirect to="/"/>
-        }
-      </Context.Consumer>        
         <Route exact path="/" component={Login} />
         <Route exact path="/balance" component={Balance} />
         <Route exact path="/registro" component={Registro} />
