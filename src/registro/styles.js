@@ -27,6 +27,7 @@ export const Container2 = styled.div`
   align-items: center;
   background-image: url('https://i.imgur.com/X9Jq6EA.jpg');
   background-position: -100px -50px;
+  position: relative;
 `
 
 export const FormContainer = styled.div`
@@ -39,7 +40,7 @@ export const Form = styled.form`
 /* border: 1px solid blue; */
   margin: auto;
   width: 90%;
-  height: 70%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,15 +65,33 @@ export const Button = styled.button`
 `
 
 export const Text = styled.p`
-  text-align: center;
+  margin: 0;
+  text-align: left;
+  width: 90%;
 `
 export const Text2 = styled.p`
   text-align: center;
   width: 90%;
   margin: 0;
 `
+export const TextError = styled.p`
+  margin: 0;
+  text-align: left;
+  width: 90%;
+  color: red;
+`
 
 export const Titulo = styled.h1`
   text-align: center;
   font-size: 2em;
+`
+
+export const Opacity = styled.div`
+  background-color: black;
+  opacity: .3;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 `

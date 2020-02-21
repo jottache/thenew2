@@ -5,6 +5,7 @@ import {GlobalStyles} from './styles'
 import {Balance} from './balance/index'
 import {Login} from './login/index'
 import {Registro} from './registro/index'
+import {Credentials} from './credentials/index'
 
 export const App = () => {
 
@@ -18,6 +19,7 @@ export const App = () => {
         <Route exact path="/" component={Login} />
         <Route exact path="/balance" component={Balance} />
         <Route exact path="/registro" component={Registro} />
+        <Route exact path="/credentials" component={Credentials} />
     </HashRouter>
   )
 }

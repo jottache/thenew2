@@ -13,7 +13,13 @@ import {
   Name,
   Text,
   BalanceNumber,
-  TransactionsContainer
+  TransactionsContainer,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td
 } from './styles'
 import {FaAlignRight, FaTimes} from 'react-icons/fa'
 
@@ -25,6 +31,18 @@ export const Balance = (props) =>{
   // const [data, setData] = useState('')
   const [open, setOpen] = useState(false)
 
+  const fakeData = [
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+  ]
+
   const openModal = () => {
     setOpen(!open)
 
@@ -33,7 +51,7 @@ export const Balance = (props) =>{
 
   // useEffect(()=>{
   //   axios({
-  //     url: `http://192.168.86.40:3000/api/customers/${id}`,
+  //     url: `http://18.224.118.22:18080/api/customers/${id}`,
   //     method: 'get',
   //     headers: {
   //       Authorization: `Bearer ${token}` 
@@ -57,14 +75,14 @@ export const Balance = (props) =>{
               <Name>ci: 20068522</Name>
             </div>
             <Menu>
-              <Name>hola jose Vicente</Name>
+              <Name>hola Jose Vicente</Name>
               <Svg>
                 <FaAlignRight onClick={openModal} />
                 {
                   open ? 
                   <Modal>
-                    <Link to={{pathname: "/pass-change", state: {id: id, token: token}}}>cambiar contraseña</Link>
-                    <Link to={{pathname: "/pass-change", state: {id: id, token: token}}}>cambiar pin</Link>
+                    <Link to={{pathname: "/credentials", state: {id: id, token: token, pass: true}}}>cambiar contraseña</Link>
+                    <Link to={{pathname: "/credentials", state: {id: id, token: token, pin: true }}}>cambiar pin</Link>
                   </Modal>
                   : null
                 }
@@ -72,10 +90,35 @@ export const Balance = (props) =>{
             </Menu>
           </Div>
             <Text>Saldo disponible</Text>
-            <BalanceNumber>$ 1232.123,00</BalanceNumber>
+            <BalanceNumber>$ 233.555,00</BalanceNumber>
           </BalanceContainer>
           <TransactionsContainer>
-            {/* <Table></Table> */}
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>Fecha</Th>
+                  <Th>Ref.</Th>
+                  <Th>Descripcion</Th>
+                  <Th>Monto</Th>
+                  <Th>up/down</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+              {
+                fakeData.map((data)=>{
+                  return(
+                    <Tr>
+                      <Td>{data.fecha}</Td>
+                      <Td>{data.ref}</Td>
+                      <Td>jabon 1L plaza V.</Td>
+                      <Td>$ {data.monto}</Td>
+                      <Td>{data.upDown ? 'sumo' : 'resto' }</Td>
+                    </Tr>
+                  )
+                })
+              }
+              </Tbody>
+            </Table>
           </TransactionsContainer>
         </Container>
       </Section>
@@ -83,6 +126,6 @@ export const Balance = (props) =>{
     )
   // }
   // else{
-  //   <Redirect to="/"/>
+  //   <Redirect to="/" />
   // }
 } 

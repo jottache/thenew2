@@ -88,3 +88,31 @@ export const TransactionsContainer = styled.div`
   width: 100%;
   height: 69%;
 `
+
+export const Table = styled.table`
+  /* border: 1px solid red; */
+  width: 100%;
+  height: auto;
+`
+export const Thead = styled.thead`
+  border: 1px solid green;
+`
+export const Tbody = styled.tbody`
+  /* border: 1px solid orange; */
+`
+export const Tr = styled.tr`
+  border: 1px solid blue;
+  margin: 10px 0;
+`
+export const Th = styled.th`
+  /* text-align: left; */
+  /* border: 1px solid yellow; */
+  &:last-child {
+    color:red;
+  }
+`
+export const Td = styled.td`
+  /* border: 1px solid red; */
+  height: 30px;
+  text-align: center;
+`
