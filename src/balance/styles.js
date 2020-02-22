@@ -87,22 +87,33 @@ export const TransactionsContainer = styled.div`
   opacity: .9;
   width: 100%;
   height: 69%;
+  overflow-y: auto;
+  &::-webkit-scrollbar{
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb{
+    height: auto;
+    border-radius: 4px;
+    background-color: gray;
+  }
 `
 
 export const Table = styled.table`
-  /* border: 1px solid red; */
+  border-collapse: collapse;
   width: 100%;
   height: auto;
 `
 export const Thead = styled.thead`
-  border: 1px solid green;
+  /* border: 1px solid green; */
 `
 export const Tbody = styled.tbody`
-  /* border: 1px solid orange; */
 `
 export const Tr = styled.tr`
-  border: 1px solid blue;
+  border-bottom: 1px solid lightgray;
   margin: 10px 0;
+  &:nth-of-type(2n){
+    background-color: lightgray;
+  }
 `
 export const Th = styled.th`
   /* text-align: left; */
@@ -113,6 +124,6 @@ export const Th = styled.th`
 `
 export const Td = styled.td`
   /* border: 1px solid red; */
-  height: 30px;
+  height: 45px;
   text-align: center;
 `

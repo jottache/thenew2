@@ -47,6 +47,11 @@ export const Form = styled.form`
   justify-content: center;
   align-items: center;
 `
+export const Div = styled.div`
+  width: 100%;
+  height: 50px;
+  text-align: center;
+`
 
 export const Input = styled.input`
   width: 90%;

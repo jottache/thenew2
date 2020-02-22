@@ -21,49 +21,53 @@ import {
   Th,
   Td
 } from './styles'
-import {FaAlignRight, FaTimes} from 'react-icons/fa'
+import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa'
 
 export const Balance = (props) =>{
 
-  // const [auth, setAuth] = useState(true)
-  // const [id, setId] = useState(props.location.state.id)
-  // const [token, setToken] = useState(props.location.state.token)
-  // const [data, setData] = useState('')
+  const [auth, setAuth] = useState(true)
+  const [id, setId] = useState(props.location.state.id)
+  const [token, setToken] = useState(props.location.state.token)
+  const [data, setData] = useState('')
   const [open, setOpen] = useState(false)
 
   const fakeData = [
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
-    {fecha: '10/12/2020', ref: Math.random()*1000, descripcion: 'Lorem ipsum dolor sit  adipisicing elit. Nostrum', monto: Math.random()*100, upDown: ()=>{const bar = Math.random();if(bar <= 0.5){return true}else{return false}}},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Caraotas 1kg Petare', monto: Math.round(Math.random()*100), upDown: true},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: true},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Caraotas 1kg Petare', monto: Math.round(Math.random()*100), upDown: true},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: false},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: false},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Caraotas 1kg Petare', monto: Math.round(Math.random()*100), upDown: true},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: true},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
+    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: false},
   ]
 
   const openModal = () => {
     setOpen(!open)
-
   }
 
 
-  // useEffect(()=>{
-  //   axios({
-  //     url: `http://18.224.118.22:18080/api/customers/${id}`,
-  //     method: 'get',
-  //     headers: {
-  //       Authorization: `Bearer ${token}` 
-  //     }
-  //   }).then(res => {
-  //     console.log(res)
-  //     setData(res.data.data)
-  //     console.log(data)
-  //   })
-  // },[])
 
-  // if(id && token){
+  useEffect(()=>{
+    axios({
+      url: `http://18.224.118.22:18080/api/customers/${id}`,
+      url: `http://192.168.86.40:3000/api/customers/${id}`,
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${token}` 
+      }
+    }).then(res => {
+      console.log(res)
+      setData(res.data.data)
+      console.log(data)
+    })
+  },[])
+
+  if(id && token){
     return(
       <>
       <Section>
@@ -72,10 +76,12 @@ export const Balance = (props) =>{
           <Div>
             <div>
               <Title>EcoWallet</Title>
-              <Name>ci: 20068522</Name>
+              <Name>ci:{data.ci}</Name>
+              {/* <Name>ci 20068522</Name> */}
             </div>
             <Menu>
-              <Name>hola Jose Vicente</Name>
+              <Name>hola {data.first_name} {data.last_name}</Name>
+              {/* <Name>hola jose</Name> */}
               <Svg>
                 <FaAlignRight onClick={openModal} />
                 {
@@ -83,6 +89,7 @@ export const Balance = (props) =>{
                   <Modal>
                     <Link to={{pathname: "/credentials", state: {id: id, token: token, pass: true}}}>cambiar contraseña</Link>
                     <Link to={{pathname: "/credentials", state: {id: id, token: token, pin: true }}}>cambiar pin</Link>
+                    <Link to="/" >salir</Link>
                   </Modal>
                   : null
                 }
@@ -90,7 +97,8 @@ export const Balance = (props) =>{
             </Menu>
           </Div>
             <Text>Saldo disponible</Text>
-            <BalanceNumber>$ 233.555,00</BalanceNumber>
+            <BalanceNumber>$ {data.balance}</BalanceNumber>
+            {/* <BalanceNumber>$ 123.123</BalanceNumber> */}
           </BalanceContainer>
           <TransactionsContainer>
             <Table>
@@ -103,29 +111,27 @@ export const Balance = (props) =>{
                   <Th>up/down</Th>
                 </Tr>
               </Thead>
-              <Tbody>
               {
                 fakeData.map((data)=>{
                   return(
-                    <Tr>
-                      <Td>{data.fecha}</Td>
-                      <Td>{data.ref}</Td>
-                      <Td>jabon 1L plaza V.</Td>
-                      <Td>$ {data.monto}</Td>
-                      <Td>{data.upDown ? 'sumo' : 'resto' }</Td>
-                    </Tr>
+                      <Tr>
+                        <Td>{data.fecha}</Td>
+                        <Td>{data.ref}</Td>
+                        <Td>jabon 1L plaza V.</Td>
+                        <Td>$ {data.monto}</Td>
+                        <Td>{data.upDown ? <FaLongArrowAltUp /> : <FaLongArrowAltDown /> }</Td>
+                      </Tr>
                   )
                 })
               }
-              </Tbody>
             </Table>
           </TransactionsContainer>
         </Container>
       </Section>
       </>
     )
-  // }
-  // else{
-  //   <Redirect to="/" />
-  // }
+  }
+  else{
+    <Redirect to="/" />
+  }
 } 

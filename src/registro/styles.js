@@ -33,7 +33,7 @@ export const Container2 = styled.div`
 export const FormContainer = styled.div`
   /* border: 1px solid red; */
   width: 90%;
-  height: 70%;
+  height: 80%;
 `
 
 export const Form = styled.form`
@@ -45,6 +45,11 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`
+export const Div = styled.div`
+  width: 100%;
+  height: 50px;
+  text-align: center;
 `
 
 export const Input = styled.input`
@@ -68,6 +73,7 @@ export const Text = styled.p`
   margin: 0;
   text-align: left;
   width: 90%;
+  color: gray;
 `
 export const Text2 = styled.p`
   text-align: center;
@@ -81,9 +87,10 @@ export const TextError = styled.p`
   color: red;
 `
 
-export const Titulo = styled.h1`
+export const Titulo = styled.h2`
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
+  margin: 0 auto .5em 0;
 `
 
 export const Opacity = styled.div`
@@ -94,4 +101,16 @@ export const Opacity = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
+`
+
+export const Titulo2 = styled.h1`
+  text-align: right;
+  font-size: 2em;
+  color: white;
+`
+export const Text3 = styled.p`
+  text-align: right;
+  width: 50%;
+  /* margin: 0; */
+  color: white;
 `

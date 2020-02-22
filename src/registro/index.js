@@ -6,20 +6,25 @@ import {
   FormContainer,
   Form,
   Input,
+  Div,
   Button,
   Text,
   Text2,
+  Text3,
   TextError,
   Titulo,
+  Titulo2,
   Opacity
 } from './styles'
 import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import {Loader} from '../loader'
 
 export const Registro = () => {
 
   const {register, handleSubmit, errors } = useForm()
+  const [loading, setloading] = useState(false)
 
   const [first_name, setFirst_name] = useState('')
   const [last_name, setLast_name] = useState('')
@@ -43,6 +48,7 @@ export const Registro = () => {
   const [goToLog, setGoToLog] = useState(false)
 
   const registerReq = () => {
+    setloading(true)
     if(toActivate && pin === pinVerify){
       setVerifyError(false)
       axios({
@@ -63,13 +69,16 @@ export const Registro = () => {
         const created = res.status
         if(created === 200){
           alert('usuario actualizado');
+          setloading(false)
           setGoToLog(true)
           }
         })
     }
     if(pin === pinVerify){
+      setloading(true)
       axios({
-        url: 'http://18.224.118.22:18080/api/auth/sign-up/',
+        // url: 'http://18.224.118.22:18080/api/auth/sign-up/',
+        url: 'http://192.168.86.40:3000/api/auth/sign-up/',
         method: 'post',
         data: {
           first_name,
@@ -86,6 +95,7 @@ export const Registro = () => {
         const created = res.status
         if(created === 201){
           alert('usuario creado con exito');
+          setloading(false)
           setGoToLog(true)
           }
         })
@@ -95,7 +105,7 @@ export const Registro = () => {
     }
   }
   const registrationFirstStep = () =>{
-    event.preventDefault()
+    setloading(true)
     axios({
       url: 'http://18.224.118.22:18080/api/customers/exist/',
       method: 'post',
@@ -111,24 +121,26 @@ export const Registro = () => {
       const toActivate = res.data.toActivate
       if(toActivate){
         console.log('existe, actualizar')
+        setloading(false)
         setToActivate(true)
         setRegistrar(false)
         setPassView(true)
       }
       if(exist === false){
         console.log('no existe, crear')
-        console.log(res)
+        setloading(false)
         setRegistrar(false)
         setPassView(true)
       }
       if(exist){
         console.log('existe, no actualizar')
+        setloading(false)
         setExiste(true)
       }
     })
   }
   const passToPin = () => {
-    event.preventDefault()
+    setloading(false)
     if(pswd === pswdVerify){
       setPassView(false)
       setPinView(true)
@@ -170,9 +182,9 @@ export const Registro = () => {
             passView ?
             <>
               {errors.pass ? <TextError>*Contraseña</TextError> : <Text>Contraseña</Text>}
-              <Input name="pass" type="text" placeholder="password" value={pswd} onChange={event => setPswd(event.target.value)} ref={register({ required: true })}/>
+              <Input name="pass" type="text" value={pswd} onChange={event => setPswd(event.target.value)} ref={register({ required: true })}/>
               {errors.verifyPass ? <TextError>*Verifica tu contraseña</TextError> : <Text>Verifica tu contraseña</Text>}
-              <Input name="verifyPass" type="text" placeholder="verifica password" value={pswdVerify} onChange={event => setPswdVerify(event.target.value)} ref={register({ required: true })}/>
+              <Input name="verifyPass" type="text" value={pswdVerify} onChange={event => setPswdVerify(event.target.value)} ref={register({ required: true })}/>
               {
                 verifyError ?
                 <p>las contraseñas no coinciden</p>
@@ -186,9 +198,9 @@ export const Registro = () => {
             pinView ?
             <>
               {errors.pin ? <TextError>*Pin</TextError> : <Text>Pin</Text>}
-              <Input name="pin" type="text" placeholder="pin" value={pin} onChange={event => setPin(event.target.value)} ref={register({ required: true })}/>
+              <Input name="pin" type="text" value={pin} onChange={event => setPin(event.target.value)} ref={register({ required: true })}/>
               {errors.verrifyPin ? <TextError>*Verifica tu pin</TextError> : <Text>Verifica tu pin</Text>}
-              <Input name="verrifyPin" type="text" placeholder="verifica pin" value={pinVerify} onChange={event => setPinVerify(event.target.value)} ref={register({ required: true })}/>
+              <Input name="verrifyPin" type="text" value={pinVerify} onChange={event => setPinVerify(event.target.value)} ref={register({ required: true })}/>
               {
                 verifyError ? 
                 <p>los campos no coinciden</p>
@@ -198,12 +210,20 @@ export const Registro = () => {
             </>
             : null
           }
+          <Div>
+            {
+              loading ? <Loader /> : null 
+            }
+          </Div>
           </Form>
           <Text2>ya estas registrado? <Link to="/">Ingresa</Link></Text2>
         </FormContainer>
         </Container>
         <Container2>
-        <Opacity />
+        <Opacity>
+          {/* <Titulo2>EcoWallet</Titulo2>
+          <Text3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, ab. Quo quisquam repudiandae nam? Exercitationem voluptatum, voluptatibus dicta distinctio et aliqui.</Text3> */}
+        </Opacity>
         </Container2>
         {
           goToLog ?

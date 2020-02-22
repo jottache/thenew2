@@ -8,6 +8,7 @@ import {
   Input,
   Button,
   Button2,
+  Div,
   Text,
   Text2,
   TextError,
@@ -17,10 +18,12 @@ import {
 import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import {Loader} from '../loader'
 
 export const Login = () => {
 
   const {register, handleSubmit, errors } = useForm()
+  const [loading, setLoading] = useState(false)
 
   const [error, setError] = useState(false)
   const [signIn, setSignIn] = useState(false)
@@ -32,14 +35,15 @@ export const Login = () => {
   const [id, setId] = useState('')
 
   const sendRequest = (event) => {
+    setLoading(true)
     axios({
-      url: 'http://18.224.118.22:18080/api/auth/sign-in/',
+      // url: 'http://18.224.118.22:18080/api/auth/sign-in/',
+      url: 'http://192.168.86.40:3000/api/auth/sign-in/',
       method: 'post',
       auth: {
         username,
         password,
       },
-      // withCredentials: true
     })
     .then((res)=>{
       console.log(res)
@@ -48,10 +52,12 @@ export const Login = () => {
         const tokenInicio = res.data.token
         setId(identificador)
         setToken(tokenInicio)
+        setLoading(false)
       }
     })
     .catch((err)=>{
       console.log(err)
+      setLoading(false)
     })
   }
 
@@ -84,6 +90,11 @@ export const Login = () => {
           <Button type="submit">ingresar</Button>
           <Text2>no estas registrado?</Text2>
           <Button2 onClick={redirectToLogin}>registrate</Button2>
+          <Div>
+            {
+              loading ? <Loader /> : null
+            }
+          </Div>
         </Form>
       </FormContainer>
       </Container>
