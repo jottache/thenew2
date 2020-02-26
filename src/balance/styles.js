@@ -55,6 +55,7 @@ export const Name = styled.p`
 export const Svg = styled.div`
   font-size: 30px;
   position: relative;
+  cursor: pointer;
 `
 
 export const Modal = styled.div`

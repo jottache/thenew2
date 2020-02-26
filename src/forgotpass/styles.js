@@ -12,7 +12,7 @@ export const Container = styled.div`
   opacity: .9;
   margin: auto;
   width: 30%;
-  height: 60%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   justify-content: center;

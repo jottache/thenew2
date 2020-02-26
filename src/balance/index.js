@@ -26,25 +26,12 @@ import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa
 export const Balance = (props) =>{
 
   const [auth, setAuth] = useState(true)
-  const [id, setId] = useState(props.location.state.id)
-  const [token, setToken] = useState(props.location.state.token)
+  const [id, setId] = useState(props.location.state.id || false)
+  const [token, setToken] = useState(props.location.state.token || false)
   const [data, setData] = useState('')
+  const [orders, setOrders] = useState([])
   const [open, setOpen] = useState(false)
 
-  const fakeData = [
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Caraotas 1kg Petare', monto: Math.round(Math.random()*100), upDown: true},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: true},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Caraotas 1kg Petare', monto: Math.round(Math.random()*100), upDown: true},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: false},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: false},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Caraotas 1kg Petare', monto: Math.round(Math.random()*100), upDown: true},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: true},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Jabon 1L Plaza V.', monto: Math.round(Math.random()*100), upDown: false},
-    {fecha: '10/12/2020', ref: Math.round(Math.random()*1000), descripcion: 'Arroz 1kg Chacao', monto: Math.round(Math.random()*100), upDown: false},
-  ]
 
   const openModal = () => {
     setOpen(!open)
@@ -54,7 +41,7 @@ export const Balance = (props) =>{
 
   useEffect(()=>{
     axios({
-      url: `http://18.224.118.22:18080/api/customers/${id}`,
+      // url: `http://18.224.118.22:18080/api/customers/${id}`,
       url: `http://192.168.86.40:3000/api/customers/${id}`,
       method: 'get',
       headers: {
@@ -64,6 +51,20 @@ export const Balance = (props) =>{
       console.log(res)
       setData(res.data.data)
       console.log(data)
+    })
+  },[])
+
+  useEffect(()=>{
+    axios({
+      url: `http://192.168.86.40:3000/api/orders/${id}`,
+      // url: `http://192.168.86.40:3000/api/orders/1`,
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${token}` 
+      }
+    }).then(res => {
+      console.log(res)
+      setOrders(res.data.order)
     })
   },[])
 
@@ -87,8 +88,8 @@ export const Balance = (props) =>{
                 {
                   open ? 
                   <Modal>
-                    <Link to={{pathname: "/credentials", state: {id: id, token: token, pass: true}}}>cambiar contraseña</Link>
-                    <Link to={{pathname: "/credentials", state: {id: id, token: token, pin: true }}}>cambiar pin</Link>
+                    <Link to={{pathname: "/passwordChange", state: {id: id, token: token, pass: true}}}>cambiar contraseña</Link>
+                    <Link to={{pathname: "/pinChange", state: {id: id, token: token, pinNumber: true }}}>cambiar pin</Link>
                     <Link to="/" >salir</Link>
                   </Modal>
                   : null
@@ -106,20 +107,23 @@ export const Balance = (props) =>{
                 <Tr>
                   <Th>Fecha</Th>
                   <Th>Ref.</Th>
-                  <Th>Descripcion</Th>
+                  <Th>Producto</Th>
+                  <Th>Tienda</Th>
                   <Th>Monto</Th>
                   <Th>up/down</Th>
                 </Tr>
               </Thead>
               {
-                fakeData.map((data)=>{
+                orders.map((order)=>{
                   return(
                       <Tr>
-                        <Td>{data.fecha}</Td>
-                        <Td>{data.ref}</Td>
-                        <Td>jabon 1L plaza V.</Td>
-                        <Td>$ {data.monto}</Td>
-                        <Td>{data.upDown ? <FaLongArrowAltUp /> : <FaLongArrowAltDown /> }</Td>
+                        <Td>{order.createdAt.substring(0, 10)}</Td>
+                        <Td>{order.reference}</Td>
+                        <Td>{order.machine.product.product}</Td>
+                        <Td>{order.machine.shop.name_shop}</Td>
+                        <Td>$ {order.total_price}</Td>
+                        {/* <Td>{order.upDown ? <FaLongArrowAltUp /> : <FaLongArrowAltDown /> }</Td> */}
+                        <Td><FaLongArrowAltDown /></Td>
                       </Tr>
                   )
                 })
@@ -131,7 +135,7 @@ export const Balance = (props) =>{
       </>
     )
   }
-  else{
+  if(id && token === false){
     <Redirect to="/" />
   }
 } 

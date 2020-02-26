@@ -84,17 +84,16 @@ export const Button2 = styled.button`
 
 export const Text = styled.p`
   text-align: left;
-  width: 80%;
+  width: 90%;
   margin: 0;
 `
 export const Text2 = styled.p`
   text-align: center;
-  width: 80%;
   margin: 0;
 `
 export const TextError = styled.p`
   text-align: left;
-  width: 80%;
+  width: 90%;
   margin: 0;
   color: red;
 `

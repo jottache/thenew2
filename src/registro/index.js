@@ -48,6 +48,7 @@ export const Registro = () => {
   const [goToLog, setGoToLog] = useState(false)
 
   const registerReq = () => {
+    event.preventDefault()
     setloading(true)
     if(toActivate && pin === pinVerify){
       setVerifyError(false)
@@ -57,7 +58,7 @@ export const Registro = () => {
         data: {
           first_name,
           last_name,
-          ci,
+          ci: `v${ci}`,
           pswd,
           pin,
           card_serial,
@@ -83,7 +84,7 @@ export const Registro = () => {
         data: {
           first_name,
           last_name,
-          ci,
+          ci: `v${ci}`,
           pswd,
           pin,
           card_serial,
@@ -102,9 +103,11 @@ export const Registro = () => {
     }
     else{
       setVerifyError(true)
+      setloading(false)
     }
   }
   const registrationFirstStep = () =>{
+    event.preventDefault()
     setloading(true)
     axios({
       url: 'http://18.224.118.22:18080/api/customers/exist/',
@@ -140,6 +143,7 @@ export const Registro = () => {
     })
   }
   const passToPin = () => {
+    event.preventDefault()
     setloading(false)
     if(pswd === pswdVerify){
       setPassView(false)
@@ -155,59 +159,58 @@ export const Registro = () => {
         <Container>
         <FormContainer>
           <Titulo>Registro</Titulo>
-          <Form onSubmit={handleSubmit(registerReq)}>
           {
             registrar ? 
-            <>
-              {errors.nombre ? <TextError>*Nombre</TextError> : <Text>Nombre</Text>}
-              <Input name="nombre" type="text" value={first_name} onChange={event => setFirst_name(event.target.value)} ref={register({ required: true })}/>
-              {errors.apellido ? <TextError>*Apellido</TextError> : <Text>Apellido</Text>}
-              <Input name="apellido" type="text" value={last_name} onChange={event => setLast_name(event.target.value)} ref={register({ required: true })}/>
-              {errors.cedula ? <TextError>*Cedula</TextError> : <Text>Cedula</Text>}
-              <Input name="cedula" type="text" value={ci} onChange={event => setCi(event.target.value)} ref={register({ required: true })}/>
-              {errors.serial ? <TextError>*Serial</TextError> : <Text>Serial</Text>}
-              <Input name="serial" type="text" value={card_serial} onChange={event => setCard_serial(event.target.value)} ref={register({ required: true })}/>
-              {errors.codigo ? <TextError>*Codigo serial</TextError> : <Text>Codigo serial</Text>}
-              <Input name="codigo" type="text" value={card_code} onChange={event => setCard_code(event.target.value)} ref={register({ required: true })}/>
-              <Button onClick={handleSubmit(registrationFirstStep)}>Siguiente</Button>
+            <Form onSubmit={registrationFirstStep}>
+              <Text>Nombre</Text>
+              <Input name="nombre" type="text" required value={first_name} onChange={event => setFirst_name(event.target.value)} ref={register({ required: true })}/>
+              <Text>Apellido</Text>
+              <Input name="apellido" type="text" required value={last_name} onChange={event => setLast_name(event.target.value)} ref={register({ required: true })}/>
+              <Text>Cedula</Text>
+              <Input name="cedula" type="text" required pattern="[0-9]*" maxLength="8" value={ci} onChange={event => setCi(event.target.value)} ref={register({ required: true })}/>
+              <Text>Serial</Text>
+              <Input name="serial" type="text" required pattern="[0-9]*" minLength="10" maxLength="10" value={card_serial} onChange={event => setCard_serial(event.target.value)} ref={register({ required: true })}/>
+              <Text>Codigo serial</Text>
+              <Input name="codigo" type="text" required pattern="[0-9]*" minLength="10" maxLength="10" value={card_code} onChange={event => setCard_code(event.target.value)} ref={register({ required: true })}/>
+              <Button type="submit">Siguiente</Button>
               {
                 existe ?
                 <p>ya existe el usuario</p>
                 : null
               }
-            </>
+            </Form>
             : null
           }
           {
             passView ?
-            <>
-              {errors.pass ? <TextError>*Contraseña</TextError> : <Text>Contraseña</Text>}
-              <Input name="pass" type="text" value={pswd} onChange={event => setPswd(event.target.value)} ref={register({ required: true })}/>
-              {errors.verifyPass ? <TextError>*Verifica tu contraseña</TextError> : <Text>Verifica tu contraseña</Text>}
-              <Input name="verifyPass" type="text" value={pswdVerify} onChange={event => setPswdVerify(event.target.value)} ref={register({ required: true })}/>
+            <Form onSubmit={passToPin}>
+              <Text>Contraseña</Text>
+              <Input name="pass" type="text" required minLength="6" value={pswd} onChange={event => setPswd(event.target.value)} />
+              <Text>Verifica tu contraseña</Text>
+              <Input name="verifyPass" type="text" required minLength="6" value={pswdVerify} onChange={event => setPswdVerify(event.target.value)} />
               {
                 verifyError ?
                 <p>las contraseñas no coinciden</p>
                 : null
               }
-              <Button onClick={handleSubmit(passToPin)}>Siguiente</Button>
-            </>
+              <Button type="submit">Siguiente</Button>
+            </Form>
             : null
           }
           {
             pinView ?
-            <>
-              {errors.pin ? <TextError>*Pin</TextError> : <Text>Pin</Text>}
-              <Input name="pin" type="text" value={pin} onChange={event => setPin(event.target.value)} ref={register({ required: true })}/>
-              {errors.verrifyPin ? <TextError>*Verifica tu pin</TextError> : <Text>Verifica tu pin</Text>}
-              <Input name="verrifyPin" type="text" value={pinVerify} onChange={event => setPinVerify(event.target.value)} ref={register({ required: true })}/>
+            <Form onSubmit={registerReq}>
+              <Text>Pin</Text>
+              <Input name="pin" type="text" required pattern="[0-9]*" minLength="4" maxLength="4" value={pin} onChange={event => setPin(event.target.value)}/>
+              <Text>Verifica tu pin</Text>
+              <Input name="verrifyPin" type="text" required pattern="[0-9]*" minLength="4" maxLength="4" value={pinVerify} onChange={event => setPinVerify(event.target.value)} />
               {
                 verifyError ? 
                 <p>los campos no coinciden</p>
                 : null
               }
               <Button type="submit">Registrar</Button>
-            </>
+            </Form>
             : null
           }
           <Div>
@@ -215,7 +218,6 @@ export const Registro = () => {
               loading ? <Loader /> : null 
             }
           </Div>
-          </Form>
           <Text2>ya estas registrado? <Link to="/">Ingresa</Link></Text2>
         </FormContainer>
         </Container>
