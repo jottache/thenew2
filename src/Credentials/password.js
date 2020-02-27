@@ -34,7 +34,8 @@ export const PasswordChange = (props) => {
     setLoading(true)
     axios({
       // url: 'http://18.224.118.22:18080/api/auth/sign-in/',
-      url: `http://192.168.86.40:3000/api/customers/change/credentials/${id}`,
+      // url: `http://192.168.86.40:3000/api/customers/change/credentials/${id}`,
+      url: `http://18.224.118.22:18443/api/customers/change/credentials/${id}`,
       method: 'put',
       headers: {
         Authorization: `Bearer ${token}` 

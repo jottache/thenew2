@@ -50,20 +50,17 @@ export const Registro = () => {
   const registerReq = () => {
     event.preventDefault()
     setloading(true)
-    if(toActivate && pin === pinVerify){
+    if(toActivate === true && pin === pinVerify){
       setVerifyError(false)
       axios({
-        // url: 'http://18.224.118.22:18080/api/customers/activate/',
-        url: 'http://192.168.86.40:3000/api/auth/sign-up/',
+        url: 'http://18.224.118.22:18443/api/customers/activate/',
+        // url: 'http://192.168.86.40:3000/api/customers/activate/',
         method: 'post',
         data: {
-          first_name,
-          last_name,
           ci: `v${ci}`,
           pswd,
           pin,
           card_serial,
-          card_code,
         }
       })
       .then((res)=>{
@@ -78,11 +75,11 @@ export const Registro = () => {
           console.log(error.response)
         })
     }
-    if(pin === pinVerify){
+    if(toActive === false && pin === pinVerify){
       setloading(true)
       axios({
-        // url: 'http://18.224.118.22:18080/api/auth/sign-up/',
-        url: 'http://192.168.86.40:3000/api/auth/sign-up/',
+        url: 'http://18.224.118.22:18443/api/auth/sign-up/',
+        // url: 'http://192.168.86.40:3000/api/auth/sign-up/',
         method: 'post',
         data: {
           first_name,
@@ -115,8 +112,8 @@ export const Registro = () => {
     event.preventDefault()
     setloading(true)
     axios({
-      // url: 'http://18.224.118.22:18080/api/customers/exist/',
-      url: 'http://192.168.86.40:3000/api/customers/exist/',
+      url: 'http://18.224.118.22:18443/api/customers/exist/',
+      // url: 'http://192.168.86.40:3000/api/customers/exist/',
       method: 'post',
       data: {
         ci: `v${ci}`,

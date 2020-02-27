@@ -40,8 +40,8 @@ export const Login = () => {
     setLoading(true)
     setDataError(false)
     axios({
-      // url: 'http://18.224.118.22:18080/api/auth/sign-in/',
-      url: 'http://192.168.86.40:3000/api/auth/sign-in/',
+      url: 'http://18.224.118.22:18443/api/auth/sign-in/',
+      // url: 'http://192.168.86.40:3000/api/auth/sign-in/',
       method: 'post',
       auth: {
         username: `v${username}`,
@@ -63,7 +63,6 @@ export const Login = () => {
       setLoading(false)
       if(err.response.statusText === 'Unauthorized'){
         setDataError(true)
-        console.log(passError)
       }
     })
   }

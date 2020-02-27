@@ -9,7 +9,7 @@ import {PasswordChange} from './credentials/password'
 import {PinChange} from './credentials/pin'
 import {ForgotPass} from './forgotpass/index'
 
-export const App = () => {
+const App = () => {
 
   // const UserLogged = ({ children }) => {
   //   return children({ isAuth: true})
@@ -27,3 +27,4 @@ export const App = () => {
     </HashRouter>
   )
 }
+export default App

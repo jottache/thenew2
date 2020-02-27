@@ -47,8 +47,8 @@ export const Balance = (props) =>{
 
   useEffect(()=>{
     axios({
-      // url: `http://18.224.118.22:18080/api/customers/${id}`,
-      url: `http://192.168.86.40:3000/api/customers/${id}`,
+      url: `http://18.224.118.22:18443/api/customers/${id}`,
+      // url: `http://192.168.86.40:3000/api/customers/${id}`,
       method: 'get',
       headers: {
         Authorization: `Bearer ${token}` 
@@ -62,7 +62,8 @@ export const Balance = (props) =>{
 
   useEffect(()=>{
     axios({
-      url: `http://192.168.86.40:3000/api/orders/${id}`,
+      url: `http://18.224.118.22:18443/api/orders/${id}`,
+      // url: `http://192.168.86.40:3000/api/orders/${id}`,
       // url: `http://192.168.86.40:3000/api/orders/1`,
       method: 'get',
       headers: {
