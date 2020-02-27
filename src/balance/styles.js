@@ -127,4 +127,13 @@ export const Td = styled.td`
   /* border: 1px solid red; */
   height: 45px;
   text-align: center;
+  :nth-child(2){
+    color: blue;
+  }
+`
+export const Red = styled.p`
+  color: red;
+`
+export const Green = styled.p`
+  color: green;
 `

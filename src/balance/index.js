@@ -19,7 +19,9 @@ import {
   Tbody,
   Tr,
   Th,
-  Td
+  Td,
+  Green,
+  Red
 } from './styles'
 import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa'
 
@@ -37,7 +39,11 @@ export const Balance = (props) =>{
     setOpen(!open)
   }
 
-
+  const transformText = (str) => {
+    const arr = str.split(' ')
+    const name = arr[0].toLowerCase()
+    return name.charAt(0).toUpperCase() + name.slice(1)
+  }
 
   useEffect(()=>{
     axios({
@@ -77,11 +83,11 @@ export const Balance = (props) =>{
           <Div>
             <div>
               <Title>EcoWallet</Title>
-              <Name>ci:{data.ci}</Name>
+              <Name>ci: {data.ci ? data.ci.substring(1) : '' }</Name>
               {/* <Name>ci 20068522</Name> */}
             </div>
             <Menu>
-              <Name>hola {data.first_name} {data.last_name}</Name>
+              <Name>{data.first_name ? transformText(data.first_name) : '' } {data.last_name ? transformText(data.last_name) : '' }</Name>
               {/* <Name>hola jose</Name> */}
               <Svg>
                 <FaAlignRight onClick={openModal} />
@@ -107,25 +113,35 @@ export const Balance = (props) =>{
                 <Tr>
                   <Th>Fecha</Th>
                   <Th>Ref.</Th>
-                  <Th>Producto</Th>
-                  <Th>Tienda</Th>
+                  <Th>Descripcion</Th>
                   <Th>Monto</Th>
                   <Th>up/down</Th>
                 </Tr>
               </Thead>
               {
                 orders.map((order)=>{
-                  return(
+                  if(order.to_up === false){
+                    return(
                       <Tr>
                         <Td>{order.createdAt.substring(0, 10)}</Td>
-                        <Td>{order.reference}</Td>
-                        <Td>{order.machine.product.product}</Td>
-                        <Td>{order.machine.shop.name_shop}</Td>
+                        <Td>#{order.reference}</Td>
+                        <Td>{order.description}</Td>
                         <Td>$ {order.total_price}</Td>
-                        {/* <Td>{order.upDown ? <FaLongArrowAltUp /> : <FaLongArrowAltDown /> }</Td> */}
-                        <Td><FaLongArrowAltDown /></Td>
+                        <Td><Red><FaLongArrowAltDown /></Red></Td>
                       </Tr>
                   )
+                  }
+                  if(order.to_up === true){
+                    return(
+                      <Tr>
+                        <Td>{order.createdAt.substring(0, 10)}</Td>
+                        <Td>#{order.reference}</Td>
+                        <Td>{order.description}</Td>
+                        <Td>$ {order.total_price}</Td>
+                        <Td><Green><FaLongArrowAltUp /></Green></Td>
+                      </Tr>
+                  )
+                  }
                 })
               }
             </Table>

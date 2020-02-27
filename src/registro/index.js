@@ -53,7 +53,8 @@ export const Registro = () => {
     if(toActivate && pin === pinVerify){
       setVerifyError(false)
       axios({
-        url: 'http://18.224.118.22:18080/api/customers/activate/',
+        // url: 'http://18.224.118.22:18080/api/customers/activate/',
+        url: 'http://192.168.86.40:3000/api/auth/sign-up/',
         method: 'post',
         data: {
           first_name,
@@ -73,6 +74,8 @@ export const Registro = () => {
           setloading(false)
           setGoToLog(true)
           }
+        }).catch((error)=>{
+          console.log(error.response)
         })
     }
     if(pin === pinVerify){
@@ -99,6 +102,8 @@ export const Registro = () => {
           setloading(false)
           setGoToLog(true)
           }
+        }).catch((error)=>{
+          console.log(error.response)
         })
     }
     else{
@@ -110,10 +115,11 @@ export const Registro = () => {
     event.preventDefault()
     setloading(true)
     axios({
-      url: 'http://18.224.118.22:18080/api/customers/exist/',
+      // url: 'http://18.224.118.22:18080/api/customers/exist/',
+      url: 'http://192.168.86.40:3000/api/customers/exist/',
       method: 'post',
       data: {
-        ci,
+        ci: `v${ci}`,
         card_serial,
         card_code
       }
@@ -140,6 +146,8 @@ export const Registro = () => {
         setloading(false)
         setExiste(true)
       }
+    }).catch((error)=>{
+      console.log(error.response)
     })
   }
   const passToPin = () => {
