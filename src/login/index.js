@@ -40,7 +40,7 @@ export const Login = () => {
     setLoading(true)
     setDataError(false)
     axios({
-      url: 'http://18.224.118.22:18443/api/auth/sign-in/',
+      url: `${process.env.API_URL}/auth/sign-in/`,
       // url: 'http://192.168.86.40:3000/api/auth/sign-in/',
       method: 'post',
       auth: {

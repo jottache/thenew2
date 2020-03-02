@@ -15,6 +15,7 @@ import axios from 'axios'
 import {FaTimes} from 'react-icons/fa'
 import { Redirect } from 'react-router'
 import {Loader} from '../loader'
+import Swal from 'sweetalert2'
 
 export const PinChange = (props) => {
 
@@ -35,7 +36,7 @@ export const PinChange = (props) => {
     axios({
       // url: 'http://18.224.118.22:18080/api/auth/sign-in/',
       // url: `http://192.168.86.40:3000/api/customers/change/credentials/${id}`,
-      url: `http://18.224.118.22:18443/api/customers/change/credentials/${id}`,
+      url: `${process.env.API_URL}/customers/change/credentials/${id}`,
       method: 'put',
       headers: {
         Authorization: `Bearer ${token}` 
@@ -50,13 +51,24 @@ export const PinChange = (props) => {
       setLoading(false)
       const updated = res.status 
       if(updated === 200){
-        alert('Pin actualizado con exito')
+        Swal.fire({
+          title: 'Listo',
+          text: 'Pin actualizado con exito.',
+          icon: 'success',
+          showConfirmButton: true,
+          confirmButtonColor: '#008000'
+        })
         goBack()
       }
     }).catch(error => {
       console.log(error.response)
       if(error.response.statusText === "Unauthorized"){
-        alert('pin incorrecto')
+        Swal.fire({
+          title: 'Pin Incorrecto.',
+          icon: 'error',
+          showConfirmButton: true,
+          confirmButtonColor: '#008000'
+        })
         setLoading(false)
       }
     })

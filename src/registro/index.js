@@ -20,6 +20,7 @@ import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import {Loader} from '../loader'
+import Swal from 'sweetalert2'
 
 export const Registro = () => {
 
@@ -53,7 +54,7 @@ export const Registro = () => {
     if(toActivate === true && pin === pinVerify){
       setVerifyError(false)
       axios({
-        url: 'http://18.224.118.22:18443/api/customers/activate/',
+        url: `${process.env.API_URL}/customers/activate/`,
         // url: 'http://192.168.86.40:3000/api/customers/activate/',
         method: 'post',
         data: {
@@ -67,7 +68,13 @@ export const Registro = () => {
         console.log(res)
         const created = res.status
         if(created === 200){
-          alert('usuario actualizado');
+          Swal.fire({
+            title: 'Listo',
+            text: 'Usuario actualizado con exito.',
+            icon: 'success',
+            showConfirmButton: true,
+            confirmButtonColor: '#008000'
+          })
           setloading(false)
           setGoToLog(true)
           }
@@ -75,10 +82,10 @@ export const Registro = () => {
           console.log(error.response)
         })
     }
-    if(toActive === false && pin === pinVerify){
+    if(toActivate === false && pin === pinVerify){
       setloading(true)
       axios({
-        url: 'http://18.224.118.22:18443/api/auth/sign-up/',
+        url: `${process.env.API_URL}/auth/sign-up/`,
         // url: 'http://192.168.86.40:3000/api/auth/sign-up/',
         method: 'post',
         data: {
@@ -95,7 +102,13 @@ export const Registro = () => {
       .then((res)=>{
         const created = res.status
         if(created === 201){
-          alert('usuario creado con exito');
+          Swal.fire({
+            title: 'Listo',
+            text: 'Usuario creado con exito.',
+            icon: 'success',
+            showConfirmButton: true,
+            confirmButtonColor: '#008000'
+          })
           setloading(false)
           setGoToLog(true)
           }
@@ -112,7 +125,7 @@ export const Registro = () => {
     event.preventDefault()
     setloading(true)
     axios({
-      url: 'http://18.224.118.22:18443/api/customers/exist/',
+      url: `${process.env.API_URL}/customers/exist/`,
       // url: 'http://192.168.86.40:3000/api/customers/exist/',
       method: 'post',
       data: {

@@ -1,6 +1,6 @@
 {
-  "homepage": "http://jottache.github.io/thenew2",
-  "name": "the-new2",
+  "homepage": "http://jottache.github.io/thenew3",
+  "name": "the-new3",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -34,6 +34,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "3.4.2",
+    "dotenv": "^8.2.0",
     "file-loader": "5.0.2",
     "gh-pages": "^2.2.0",
     "html-webpack-plugin": "3.2.0",
@@ -47,6 +48,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "express": "^4.17.1",
+    "http-server": "^0.12.1",
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -56,6 +59,7 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.3.1",
     "regenerator-runtime": "^0.13.3",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "sweetalert2": "^9.8.2"
   }
 }
