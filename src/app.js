@@ -18,13 +18,15 @@ const App = () => {
   return(
     <HashRouter>
         <GlobalStyles />
-        <Route exact path="/" component={Login} />
-        <Route exact path="/balance" component={Balance} />
-        <Route exact path="/registro" component={Registro} />
-        <Route exact path="/passwordChange" component={PasswordChange} />
-        <Route exact path="/pinChange" component={PinChange} />
-        <Route exact path="/forgotPass" component={ForgotPass} />
-        <Route component={Login} />
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/balance" component={Balance} />
+          <Route exact path="/registro" component={Registro} />
+          <Route exact path="/passwordChange" component={PasswordChange} />
+          <Route exact path="/pinChange" component={PinChange} />
+          <Route exact path="/forgotPass" component={ForgotPass} />
+          <Route component={Login} />
+        </Switch>
     </HashRouter>
   )
 }
