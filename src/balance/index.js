@@ -28,8 +28,8 @@ import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa
 export const Balance = (props) =>{
 
   const [auth, setAuth] = useState(true)
-  const [id, setId] = useState(props.location.state.id || false)
-  const [token, setToken] = useState(props.location.state.token || false)
+  const [id, setId] = useState(props.location.state.id)
+  const [token, setToken] = useState(props.location.state.token)
   const [data, setData] = useState('')
   const [orders, setOrders] = useState([])
   const [open, setOpen] = useState(false)
@@ -46,33 +46,43 @@ export const Balance = (props) =>{
   }
 
   useEffect(()=>{
-    axios({
-      url: `${process.env.API_URL}/customers/${id}`,
-      // url: `http://192.168.86.40:3000/api/customers/${id}`,
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${token}` 
-      }
-    }).then(res => {
-      console.log(res)
-      setData(res.data.data)
-      console.log(data)
-    })
+    try {
+      axios({
+        url: `${process.env.API_URL}/customers/${id}`,
+        // url: `http://192.168.86.40:3000/api/customers/${id}`,
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      }).then(res => {
+        console.log(res)
+        setData(res.data.data)
+        console.log(data)
+      })
+    } catch (error) {
+      setId(false)
+      setToken(false)
+    }   
   },[])
 
   useEffect(()=>{
-    axios({
-      url: `${process.env.API_URL}/orders/${id}`,
-      // url: `http://192.168.86.40:3000/api/orders/${id}`,
-      // url: `http://192.168.86.40:3000/api/orders/1`,
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${token}` 
-      }
-    }).then(res => {
-      console.log(res)
-      setOrders(res.data.order)
-    })
+    try {
+      axios({
+        url: `${process.env.API_URL}/orders/${id}`,
+        // url: `http://192.168.86.40:3000/api/orders/${id}`,
+        // url: `http://192.168.86.40:3000/api/orders/1`,
+        method: 'get',
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      }).then(res => {
+        console.log(res)
+        setOrders(res.data.order)
+      })
+    } catch (error) {
+      setId(false)
+      setToken(false)
+    }
   },[])
 
   if(id && token){
@@ -152,7 +162,7 @@ export const Balance = (props) =>{
       </>
     )
   }
-  if(id && token === false){
+  if(id === false && token === false){
     <Redirect to="/" />
   }
 } 
