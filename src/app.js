@@ -24,6 +24,7 @@ const App = () => {
         <Route exact path="/passwordChange" component={PasswordChange} />
         <Route exact path="/pinChange" component={PinChange} />
         <Route exact path="/forgotPass" component={ForgotPass} />
+        <Route component={Login} />
     </HashRouter>
   )
 }
