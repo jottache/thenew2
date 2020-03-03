@@ -65,7 +65,6 @@ export const Registro = () => {
         }
       })
       .then((res)=>{
-        console.log(res)
         const created = res.status
         if(created === 200){
           Swal.fire({
@@ -79,7 +78,6 @@ export const Registro = () => {
           setGoToLog(true)
           }
         }).catch((error)=>{
-          console.log(error.response)
         })
     }
     if(toActivate === false && pin === pinVerify){
@@ -113,7 +111,6 @@ export const Registro = () => {
           setGoToLog(true)
           }
         }).catch((error)=>{
-          console.log(error.response)
         })
     }
     else{
@@ -135,29 +132,24 @@ export const Registro = () => {
       }
     })
     .then((res)=>{
-      console.log(res)
       const exist = res.data.exist
       const toActivate = res.data.toActivate
       if(toActivate){
-        console.log('existe, actualizar')
         setloading(false)
         setToActivate(true)
         setRegistrar(false)
         setPassView(true)
       }
       if(exist === false){
-        console.log('no existe, crear')
         setloading(false)
         setRegistrar(false)
         setPassView(true)
       }
       if(exist){
-        console.log('existe, no actualizar')
         setloading(false)
         setExiste(true)
       }
     }).catch((error)=>{
-      console.log(error.response)
     })
   }
   const passToPin = () => {

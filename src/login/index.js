@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Section,
   Container,
@@ -24,7 +24,6 @@ export const Login = () => {
 
   const {register, handleSubmit, errors } = useForm()
   const [loading, setLoading] = useState(false)
-
   const [error, setError] = useState(false)
   const [signIn, setSignIn] = useState(false)
   const [redirect, setRedirect] = useState(false)
@@ -34,6 +33,11 @@ export const Login = () => {
   const [dataError, setDataError] = useState(false)
   const [token, setToken] = useState('')
   const [id, setId] = useState('')
+
+  useEffect(()=>{
+    window.sessionStorage.removeItem('id')
+    window.sessionStorage.removeItem('token')
+  }, [])
 
   const sendRequest = (event) => {
     event.preventDefault()
@@ -49,17 +53,17 @@ export const Login = () => {
       },
     })
     .then((res)=>{
-      console.log(res)
       if(res.status === 200){
         const identificador = res.data.id
         const tokenInicio = res.data.token
+        sessionStorage.setItem('id', identificador)
+        sessionStorage.setItem('token', tokenInicio)
         setId(identificador)
         setToken(tokenInicio)
         setLoading(false)
       }
     })
     .catch((err)=>{
-      console.log(err.response)
       setLoading(false)
       if(err.response.statusText === 'Unauthorized'){
         setDataError(true)
@@ -113,7 +117,7 @@ export const Login = () => {
       </Container2>
       {
         token && id ? 
-        <Redirect to={{ pathname: "/balance", state: {id: id, token: token} }}/>
+        <Redirect to="/balance"/>
         : null
       }
       {

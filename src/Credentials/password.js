@@ -17,11 +17,10 @@ import { Redirect } from 'react-router'
 import {Loader} from '../loader'
 import Swal from 'sweetalert2'
 
-export const PasswordChange = (props) => {
+export const PasswordChange = () => {
 
-  const [getPass, setGetPass] = useState(props.location.state.pass || false)
-  const [token, setToken] = useState(props.location.state.token)
-  const [id, setId] = useState(props.location.state.id)
+  const [token, setToken] = useState(window.sessionStorage.getItem('token') || false)
+  const [id, setId] = useState(window.sessionStorage.getItem('id') || false)
   
   const [back, setBack] = useState(false)
 
@@ -34,8 +33,6 @@ export const PasswordChange = (props) => {
     event.preventDefault()
     setLoading(true)
     axios({
-      // url: 'http://18.224.118.22:18080/api/auth/sign-in/',
-      // url: `http://192.168.86.40:3000/api/customers/change/credentials/${id}`,
       url: `${process.env.API_URL}/customers/change/credentials/${id}`,
       method: 'put',
       headers: {
@@ -47,7 +44,6 @@ export const PasswordChange = (props) => {
         newPswd,
       },
     }).then(res=>{
-      console.log(res.status)
       const updated = res.status 
       setLoading(false)
       if(updated === 200){
@@ -61,7 +57,6 @@ export const PasswordChange = (props) => {
         goBack()
       } 
     }).catch(error => {
-      console.log(error.response)
       if(error.response.statusText === "Unauthorized"){
         setLoading(false)
         Swal.fire({
@@ -73,20 +68,18 @@ export const PasswordChange = (props) => {
       }
     })
   }
+ 
+const goBack = () => {
+  setBack(true)
+}
 
-  
-  const goBack = () => {
-    setBack(true)
-  }
-
-
-  if(getPass){
+if(token && id){
     return(
       <Section>
         <Container>
         <Svg>
           <FaTimes onClick={goBack} />
-          {back ? <Redirect  to={{pathname: "/balance", state: {id: id, token: token}}} /> : null}
+          {back ? <Redirect  to="/balance" /> : null}
         </Svg>
           <Form onSubmit={sendChangedPass}>
             <Titulo>Cambio de contraseña</Titulo>
@@ -104,5 +97,10 @@ export const PasswordChange = (props) => {
         </Container>
       </Section>
     )
-   }
   }
+  if(token === false && id === false){
+    return(
+      <Redirect to="/" />
+    )
+  }
+}

@@ -25,11 +25,10 @@ import {
 } from './styles'
 import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa'
 
-export const Balance = (props) =>{
+export const Balance = () =>{
 
-  const [auth, setAuth] = useState(true)
-  const [id, setId] = useState(props.location.state.id)
-  const [token, setToken] = useState(props.location.state.token)
+  const [id, setId] = useState(window.sessionStorage.getItem('id') || false)
+  const [token, setToken] = useState(window.sessionStorage.getItem('token') || false)
   const [data, setData] = useState('')
   const [orders, setOrders] = useState([])
   const [open, setOpen] = useState(false)
@@ -39,6 +38,11 @@ export const Balance = (props) =>{
     setOpen(!open)
   }
 
+  const closeSession = () => {
+    window.sessionStorage.removeItem('id')
+    window.sessionStorage.removeItem('token')
+  }
+
   const transformText = (str) => {
     const arr = str.split(' ')
     const name = arr[0].toLowerCase()
@@ -46,43 +50,27 @@ export const Balance = (props) =>{
   }
 
   useEffect(()=>{
-    try {
       axios({
         url: `${process.env.API_URL}/customers/${id}`,
-        // url: `http://192.168.86.40:3000/api/customers/${id}`,
         method: 'get',
         headers: {
           Authorization: `Bearer ${token}` 
         }
       }).then(res => {
-        console.log(res)
         setData(res.data.data)
-        console.log(data)
       })
-    } catch (error) {
-      setId(false)
-      setToken(false)
-    }   
   },[])
 
   useEffect(()=>{
-    try {
       axios({
         url: `${process.env.API_URL}/orders/${id}`,
-        // url: `http://192.168.86.40:3000/api/orders/${id}`,
-        // url: `http://192.168.86.40:3000/api/orders/1`,
         method: 'get',
         headers: {
           Authorization: `Bearer ${token}` 
         }
       }).then(res => {
-        console.log(res)
         setOrders(res.data.order)
       })
-    } catch (error) {
-      setId(false)
-      setToken(false)
-    }
   },[])
 
   if(id && token){
@@ -95,19 +83,17 @@ export const Balance = (props) =>{
             <div>
               <Title>EcoWallet</Title>
               <Name>ci: {data.ci ? data.ci.substring(1) : '' }</Name>
-              {/* <Name>ci 20068522</Name> */}
             </div>
             <Menu>
               <Name>{data.first_name ? transformText(data.first_name) : '' } {data.last_name ? transformText(data.last_name) : '' }</Name>
-              {/* <Name>hola jose</Name> */}
               <Svg>
                 <FaAlignRight onClick={openModal} />
                 {
                   open ? 
                   <Modal>
-                    <Link to={{pathname: "/passwordChange", state: {id: id, token: token, pass: true}}}>cambiar contraseña</Link>
-                    <Link to={{pathname: "/pinChange", state: {id: id, token: token, pinNumber: true }}}>cambiar pin</Link>
-                    <Link to="/" >salir</Link>
+                    <Link to="/passwordChange">cambiar contraseña</Link>
+                    <Link to="/pinChange">cambiar pin</Link>
+                    <Link to="/" onClick={closeSession}>salir</Link>
                   </Modal>
                   : null
                 }
@@ -116,7 +102,6 @@ export const Balance = (props) =>{
           </Div>
             <Text>Saldo disponible</Text>
             <BalanceNumber>$ {data.balance}</BalanceNumber>
-            {/* <BalanceNumber>$ 123.123</BalanceNumber> */}
           </BalanceContainer>
           <TransactionsContainer>
             <Table>
@@ -133,7 +118,7 @@ export const Balance = (props) =>{
                 orders.map((order)=>{
                   if(order.to_up === false){
                     return(
-                      <Tr>
+                      <Tr key={order.id}>
                         <Td>{order.createdAt.substring(0, 10)}</Td>
                         <Td>#{order.reference}</Td>
                         <Td>{order.description}</Td>
@@ -144,7 +129,7 @@ export const Balance = (props) =>{
                   }
                   if(order.to_up === true){
                     return(
-                      <Tr>
+                      <Tr key={order.id}>
                         <Td>{order.createdAt.substring(0, 10)}</Td>
                         <Td>#{order.reference}</Td>
                         <Td>{order.description}</Td>
@@ -163,6 +148,8 @@ export const Balance = (props) =>{
     )
   }
   if(id === false && token === false){
-    <Redirect to="/" />
+    return(
+      <Redirect to="/" />
+    )
   }
 } 

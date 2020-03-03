@@ -25,7 +25,6 @@ export const ForgotPass = () => {
   const [phoneNumber, setPhoneNumber] = useState('')
 
   const sendForgetPass = () => {
-    console.log('hello')
   }
   const goBack = () => {
     setBack(true)
