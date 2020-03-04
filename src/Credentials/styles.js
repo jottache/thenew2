@@ -18,6 +18,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  @media (max-width: 520px){
+    width: 90%;
+    background-color: rgba(255,255,255,0.8);
+  }
 `
 
 export const Form = styled.form`
@@ -32,6 +36,9 @@ export const Titulo = styled.p`
   width: 90%;
   text-align: center;
   font-size: 2em;
+  @media (max-width: 520px){
+    font-size: 1.8em;
+  }
 `
 
 export const Text = styled.p`
@@ -54,20 +61,21 @@ export const Input = styled.input`
   background: none;
 `
 export const Button = styled.button`
-  width: 90%;
+  width: 100%;
   height: 30px;
   border: none;
   background-color: green;
   color: white;
   margin-bottom: 1.1em;
   cursor: pointer;
+
 `
 export const Svg = styled.div`
   width: auto;
   position: absolute;
   top: .5em;
   right: .5em;
-  font-size: 1.5em
+  font-size: 1.5em;
 `
 export const Div = styled.div`
   width: 100%;

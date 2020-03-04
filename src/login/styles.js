@@ -7,6 +7,12 @@ export const Section = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 520px){
+    background-image: url('https://i.imgur.com/X9Jq6EA.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: -180px 0px;
+  }
 `
 
 export const Container = styled.div`
@@ -17,6 +23,11 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+  @media (max-width: 520px){
+    width: 90%;
+    background: none;
+    height: auto;
+  }
 `
 export const Container2 = styled.div`
   /* border: 1px solid red; */
@@ -28,6 +39,10 @@ export const Container2 = styled.div`
   background-image: url('https://i.imgur.com/X9Jq6EA.jpg');
   background-position: -100px -50px;
   position: relative;
+  @media (max-width: 520px){
+    display: none;
+  }
+
 `
 
 export const FormContainer = styled.div`
@@ -35,6 +50,9 @@ export const FormContainer = styled.div`
   background-color: white;
   width: 90%;
   height: 70%;
+  @media (max-width: 520px){
+    background-color: rgba(255,255,255,0.8);
+  }
 `
 
 export const Form = styled.form`
@@ -57,6 +75,7 @@ export const Input = styled.input`
   width: 90%;
   height: 30px;
   margin-bottom: 1em;
+  background: none;
   border: none;
   border-bottom: 1px solid gray;
 `
@@ -74,7 +93,8 @@ export const Button2 = styled.button`
   width: 90%;
   height: 30px;
   border: none;
-  background-color: white;
+  /* background-color: white; */
+  background: none;
   color: black;
   border: 1px solid green;
   margin-bottom: 1.1em;

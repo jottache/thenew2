@@ -9,7 +9,7 @@ import {
   Div,
   Svg,
   Modal,
-  Menu,
+  MenuPosition,
   Name,
   Text,
   BalanceNumber,
@@ -24,8 +24,51 @@ import {
   Red
 } from './styles'
 import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa'
+import { slide as Menu } from 'react-burger-menu'
 
 export const Balance = () =>{
+
+  const styles = {
+    bmBurgerButton: {
+      width: '36px',
+      height: '30px',
+      left: '36px',
+      top: '36px'
+    },
+    bmBurgerBars: {
+      background: '#373a47'
+    },
+    bmBurgerBarsHover: {
+      background: '#a90000'
+    },
+    bmCrossButton: {
+      height: '24px',
+      width: '24px'
+    },
+    bmCross: {
+      background: '#bdc3c7'
+    },
+    bmMenu: {
+      background: '#fff',
+      padding: '1em',
+      fontSize: '.8em'
+    },
+    bmMorphShape: {
+      fill: '#373a47'
+    },
+    bmItemList: {
+      color: '#000',
+      padding: '0.8em'
+    },
+    bmItem: {
+      color: '#000',
+      display: 'block'
+    },
+    bmOverlay: {
+      background: 'rgba(0, 0, 0, 0)'
+    }
+  }
+
 
   const [id, setId] = useState(window.sessionStorage.getItem('id') || false)
   const [token, setToken] = useState(window.sessionStorage.getItem('token') || false)
@@ -82,23 +125,17 @@ export const Balance = () =>{
           <Div>
             <div>
               <Title>EcoWallet</Title>
-              <Name>ci: {data.ci ? data.ci.substring(1) : '' }</Name>
             </div>
-            <Menu>
+            <MenuPosition>
               <Name>{data.first_name ? transformText(data.first_name) : '' } {data.last_name ? transformText(data.last_name) : '' }</Name>
               <Svg>
-                <FaAlignRight onClick={openModal} />
-                {
-                  open ? 
-                  <Modal>
-                    <Link to="/passwordChange">cambiar contraseña</Link>
-                    <Link to="/pinChange">cambiar pin</Link>
-                    <Link to="/" onClick={closeSession}>salir</Link>
-                  </Modal>
-                  : null
-                }
+                  <Menu right customBurgerIcon={<FaAlignRight />} styles={styles} width={'70%'}>
+                    <Link style={{ textDecoration: 'none' }} to="/passwordChange">cambiar contraseña</Link>
+                    <Link style={{ textDecoration: 'none' }} to="/pinChange">cambiar pin</Link>
+                    <Link style={{ textDecoration: 'none' }} to="/" onClick={closeSession}>salir</Link>
+                  </Menu>
               </Svg>
-            </Menu>
+            </MenuPosition>
           </Div>
             <Text>Saldo disponible</Text>
             <BalanceNumber>$ {data.balance}</BalanceNumber>
@@ -111,9 +148,9 @@ export const Balance = () =>{
                   <Th>Ref.</Th>
                   <Th>Descripcion</Th>
                   <Th>Monto</Th>
-                  <Th>up/down</Th>
                 </Tr>
               </Thead>
+              <tbody>
               {
                 orders.map((order)=>{
                   if(order.to_up === false){
@@ -122,8 +159,7 @@ export const Balance = () =>{
                         <Td>{order.createdAt.substring(0, 10)}</Td>
                         <Td>#{order.reference}</Td>
                         <Td>{order.description}</Td>
-                        <Td>$ {order.total_price}</Td>
-                        <Td><Red><FaLongArrowAltDown /></Red></Td>
+                        <Td>$ {order.total_price}<Red><FaLongArrowAltDown /></Red> </Td>
                       </Tr>
                   )
                   }
@@ -133,13 +169,13 @@ export const Balance = () =>{
                         <Td>{order.createdAt.substring(0, 10)}</Td>
                         <Td>#{order.reference}</Td>
                         <Td>{order.description}</Td>
-                        <Td>$ {order.total_price}</Td>
-                        <Td><Green><FaLongArrowAltUp /></Green></Td>
+                        <Td>$ {order.total_price} <Green><FaLongArrowAltUp /></Green> </Td>
                       </Tr>
                   )
                   }
                 })
               }
+              </tbody>
             </Table>
           </TransactionsContainer>
         </Container>

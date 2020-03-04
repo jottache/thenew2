@@ -6,6 +6,12 @@ export const Section = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 520px){
+    background-image: url('https://i.imgur.com/X9Jq6EA.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: -180px 0px;
+  }
 `
 
 export const Container = styled.div`
@@ -16,6 +22,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+  @media (max-width: 520px){
+    width: 90%;
+    background: none;
+  }
 `
 
 export const Container2 = styled.div`
@@ -28,12 +38,19 @@ export const Container2 = styled.div`
   background-image: url('https://i.imgur.com/X9Jq6EA.jpg');
   background-position: -100px -50px;
   position: relative;
+  @media (max-width: 520px){
+    display: none;
+  }
 `
 
 export const FormContainer = styled.div`
   /* border: 1px solid red; */
   width: 90%;
   height: 80%;
+  @media (max-width: 520px){
+    background-color: rgba(255,255,255,0.8);
+    height: auto;
+  }
 `
 
 export const Form = styled.form`
@@ -45,6 +62,9 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 520px){
+    height: auto;
+  }
 `
 export const Div = styled.div`
   width: 100%;
@@ -79,6 +99,9 @@ export const Text2 = styled.p`
   text-align: center;
   width: 90%;
   margin: 0;
+  @media (max-width: 520px){
+    margin: 1em 0;
+  }
 `
 export const TextError = styled.p`
   margin: 0;
@@ -91,6 +114,9 @@ export const Titulo = styled.h2`
   text-align: center;
   font-size: 1.5em;
   margin: 0 auto .5em 0;
+  @media (max-width: 520px){
+    margin: 1em 0;
+  }
 `
 
 export const Opacity = styled.div`

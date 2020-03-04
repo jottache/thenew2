@@ -1,5 +1,5 @@
 import React from 'react'
-import {HashRouter, Switch, Route, Redirect, Router} from 'react-router-dom'
+import {BrowserRouter, Switch, Route, Redirect, Router} from 'react-router-dom'
 import {GlobalStyles} from './styles'
 
 import {Balance} from './balance/index'
@@ -16,7 +16,7 @@ const App = () => {
   // }
 
   return(
-    <HashRouter>
+    <BrowserRouter>
         <GlobalStyles />
         <Switch>
           <Route exact path="/" component={Login} />
@@ -27,7 +27,7 @@ const App = () => {
           <Route exact path="/forgotPass" component={ForgotPass} />
           <Route component={Login} />
         </Switch>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 export default App

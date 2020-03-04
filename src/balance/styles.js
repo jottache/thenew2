@@ -1,4 +1,24 @@
-import styled from 'styled-components'
+import styled, {keyframes, css} from 'styled-components'
+
+const appear = keyframes`
+  from {
+    transform: translateX(-450px);
+  }
+
+  to {
+    transform: translateX(-200px);
+  }
+`
+const disappear = keyframes`
+from {
+  transform: translateX(-100px);
+}
+
+to {
+  transform: translateX(-450px);
+}
+`
+
 
 export const Section = styled.section`
   width: 100%;
@@ -6,13 +26,20 @@ export const Section = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://i.imgur.com/X9Jq6EA.jpg')
+  background-image: url('https://i.imgur.com/X9Jq6EA.jpg');
+  @media (max-width: 520px){
+    background-size: cover;
+    background-position-x: -200px;
+  }
 `
 
 export const Container = styled.div`
 /* border: 1px solid red; */
   width: 60%;
   height: 100%;
+  @media (max-width: 520px){
+    width: 100%;
+  }
 `
 
 export const BalanceContainer = styled.div`
@@ -21,6 +48,9 @@ export const BalanceContainer = styled.div`
   border-bottom: 1px solid lightgray;
   width: 100%;
   height: 30%;
+  @media (max-width: 520px){
+    height: auto;
+  }
 `
 
 export const Div = styled.div`
@@ -32,7 +62,7 @@ export const Div = styled.div`
   align-items: center;
 `
 
-export const Menu = styled.div`
+export const MenuPosition = styled.div`
   width: auto;
   height: auto;
   display: flex;
@@ -55,7 +85,11 @@ export const Name = styled.p`
 export const Svg = styled.div`
   font-size: 30px;
   position: relative;
+  display: none;
   cursor: pointer;
+  @media (max-width: 520px){
+    display: block;
+  }
 `
 
 export const Modal = styled.div`
@@ -67,6 +101,15 @@ export const Modal = styled.div`
   flex-direction: column;
   /* border: 1px solid black; */
   transform: translateX(-110px);
+  /* @media (max-width: 520px) {
+    background-color: red;
+    width: 300px;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    animation: 1s forwards ${appear};
+  } */
 `
 
 export const Text = styled.p`
@@ -97,6 +140,9 @@ export const TransactionsContainer = styled.div`
     border-radius: 4px;
     background-color: gray;
   }
+  @media (max-width: 520px){
+    height: auto;
+  }
 `
 
 export const Table = styled.table`
@@ -117,10 +163,10 @@ export const Tr = styled.tr`
   }
 `
 export const Th = styled.th`
-  /* text-align: left; */
-  /* border: 1px solid yellow; */
-  &:last-child {
-    color:red;
+  @media (max-width: 520px){
+    :nth-child(2){
+      display: none;
+    }
   }
 `
 export const Td = styled.td`
@@ -130,10 +176,35 @@ export const Td = styled.td`
   :nth-child(2){
     color: blue;
   }
+  :nth-child(4){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 520px){
+    :nth-child(1){
+      width: 30%;
+      border-right: 1px solid gray;
+    }
+    :nth-child(2){
+      display: none;
+    }
+    :nth-child(3){
+      border-right: 1px solid gray;
+    }
+    :nth-child(4){
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+    }
+  }
 `
 export const Red = styled.p`
   color: red;
+  margin: 0;
 `
 export const Green = styled.p`
   color: green;
+  margin: 0;
 `
