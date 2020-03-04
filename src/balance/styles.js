@@ -61,6 +61,28 @@ export const Div = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+export const Div2 = styled.div`
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 520px){
+    display: none;
+  }
+`
+export const Div3 = styled.div`
+  display: flex;
+`
+
+export const P = styled.div`
+  color: gray;
+  transition: .6s;
+  & :hover{
+    color: lightskyblue;
+  }
+`
 
 export const MenuPosition = styled.div`
   width: auto;

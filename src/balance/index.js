@@ -7,6 +7,9 @@ import {
   BalanceContainer,
   Title,
   Div,
+  Div2,
+  Div3,
+  P,
   Svg,
   Modal,
   MenuPosition,
@@ -137,6 +140,14 @@ export const Balance = () =>{
               </Svg>
             </MenuPosition>
           </Div>
+          <Div2>
+            <div />
+            <Div3>
+              <P><Link style={{ textDecoration: 'none', marginLeft: '1em' }} to="/passwordChange">cambiar contraseña</Link></P>
+              <P><Link style={{ textDecoration: 'none', marginLeft: '1em' }} to="/pinChange">cambiar pin</Link></P>
+              <P><Link style={{ textDecoration: 'none', marginLeft: '1em' }} to="/" onClick={closeSession}>salir</Link></P>
+            </Div3>
+          </Div2>
             <Text>Saldo disponible</Text>
             <BalanceNumber>$ {data.balance}</BalanceNumber>
           </BalanceContainer>
