@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Section,
   Container,
@@ -28,6 +28,13 @@ export const PasswordChange = () => {
 
   const [pswd, setPswd] = useState('')
   const [newPswd, setNewPswd] = useState('')
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setBackLogin(true)
+    }, 900000)
+  },[])
+
 
   const sendChangedPass = () => {
     event.preventDefault()
@@ -84,9 +91,9 @@ if(token && id){
           <Form onSubmit={sendChangedPass}>
             <Titulo>Cambio de contraseña</Titulo>
             <Text>Contraseña</Text>
-            <Input name="pswd" type="text" required pattern="[0-9]*" minLength="6" value={pswd} onChange={event => setPswd(event.target.value)} required />
+            <Input name="pswd" type="password" required pattern="[0-9]*" minLength="6" value={pswd} onChange={event => setPswd(event.target.value)} required />
             <Text>Nueva contraseña</Text>
-            <Input name="newPswd" type="text" required pattern="[0-9]*" minLength="6" value={newPswd} onChange={event => setNewPswd(event.target.value)} required />
+            <Input name="newPswd" type="password" required pattern="[0-9]*" minLength="6" value={newPswd} onChange={event => setNewPswd(event.target.value)} required />
             <Button type="submit" >Cambiar</Button>
             <Div>
             {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Section,
   Container,
@@ -28,6 +28,10 @@ export const PinChange = () => {
 
   const [pin, setPin] = useState('')
   const [newPin, setNewPin] = useState('')
+
+  setTimeout(()=>{
+    setBackLogin(true)
+  }, 10000)
 
   const sendChangedPin = () => {
     event.preventDefault()
@@ -84,9 +88,9 @@ export const PinChange = () => {
           <Form onSubmit={sendChangedPin}>
             <Titulo>Cambio de Pin</Titulo>
             <Text>Pin</Text>
-            <Input name="pin" type="text" required pattern="[0-9]*" minLength="4" maxLength="4" value={pin} onChange={event => setPin(event.target.value)} />
+            <Input name="pin" type="password" required pattern="[0-9]*" minLength="4" maxLength="4" value={pin} onChange={event => setPin(event.target.value)} />
             <Text>Nuevo Pin</Text>
-            <Input name="newPin" type="text" required pattern="[0-9]*" minLength="4" maxLength="4" value={newPin} onChange={event => setNewPin(event.target.value)} />
+            <Input name="newPin" type="password" required pattern="[0-9]*" minLength="4" maxLength="4" value={newPin} onChange={event => setNewPin(event.target.value)} />
             <Button type="submit" >Cambiar</Button>
             <Div>
             {

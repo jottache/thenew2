@@ -28,8 +28,11 @@ import {
 } from './styles'
 import {FaAlignRight, FaLongArrowAltUp, FaLongArrowAltDown} from 'react-icons/fa'
 import { slide as Menu } from 'react-burger-menu'
+import Swal from 'sweetalert2'
 
 export const Balance = () =>{
+
+
 
   const styles = {
     bmBurgerButton: {
@@ -72,16 +75,35 @@ export const Balance = () =>{
     }
   }
 
-
   const [id, setId] = useState(window.sessionStorage.getItem('id') || false)
   const [token, setToken] = useState(window.sessionStorage.getItem('token') || false)
   const [data, setData] = useState('')
   const [orders, setOrders] = useState([])
   const [open, setOpen] = useState(false)
 
+  const [backLogin, setBackLogin] = useState(false)
 
-  const openModal = () => {
-    setOpen(!open)
+  const timeWarning = () => {
+    setTimeout(()=>{
+      Swal.fire({
+        text: 'su sesion esta por expirar.',
+        icon: 'warning',
+        showConfirmButton: true,
+        confirmButtonColor: '#008000'
+      })
+      }, 10000)
+  }
+  const timeOver = () => {
+    setTimeout(()=>{
+      Swal.fire({
+        title: 'Su sesion ha expirado!',
+        text: 'Ingrese de nuevo si desea ver su balance.',
+        icon: 'error',
+        showConfirmButton: true,
+        confirmButtonColor: '#008000'
+      })
+      setBackLogin(true)
+    }, 15000)
   }
 
   const closeSession = () => {
@@ -133,7 +155,7 @@ export const Balance = () =>{
               <Name>{data.first_name ? transformText(data.first_name) : '' } {data.last_name ? transformText(data.last_name) : '' }</Name>
               <Svg>
                   <Menu right customBurgerIcon={<FaAlignRight />} styles={styles} width={'70%'}>
-                    <Link style={{ textDecoration: 'none' }} to="/passwordChange">cambiar contraseña</Link>
+                    <Link onClick={clearTimeout(timeWarning)} style={{ textDecoration: 'none' }} to="/passwordChange">cambiar contraseña</Link>
                     <Link style={{ textDecoration: 'none' }} to="/pinChange">cambiar pin</Link>
                     <Link style={{ textDecoration: 'none' }} to="/" onClick={closeSession}>salir</Link>
                   </Menu>
@@ -190,6 +212,9 @@ export const Balance = () =>{
             </Table>
           </TransactionsContainer>
         </Container>
+        {
+          backLogin ? <Redirect to="/" /> : null
+        }
       </Section>
       </>
     )

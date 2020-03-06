@@ -95,7 +95,7 @@ export const Login = () => {
             type="password" 
             value={password} 
             onChange={event => setPassword(event.target.value)}
-            minLength="6"
+            minLength="6" required
           />
           <Button type="submit">ingresar</Button>
           <Text2>no estas registrado?</Text2>
